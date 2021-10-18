@@ -1,5 +1,6 @@
 package dev.amin.tagadapter
 
+import android.util.Log
 import kotlin.math.ceil
 
 class TagRow {
@@ -19,14 +20,27 @@ class TagRow {
      */
     val spanList = mutableListOf<Int>()
 
+    fun centerTags() {
+        var countSpans = freeSpans/2 - 1
+        //if (countSpans > 3)
+        //    countSpans -= 2
+        if (countSpans > 0) {
+            spanList.add(0, countSpans)
+            tagList.add(0, Tag(""))
+        }
+    }
+
     fun addTag(spanRequired: Float, tag: Tag) : Boolean {
 
+        val spanRequiredInt = ceil(spanRequired).toInt()
         // if the current row has enough available span
-        if (spanRequired < freeSpans)
+        if (spanRequiredInt < freeSpans)
             if (tagList.add(tag)) {
 
                 // Round the required span to Int
-                val spanRequiredInt = ceil(spanRequired).toInt()
+                //val spanRequiredInt = ceil(spanRequired).toInt()
+                Log.d("INFO", "freeSpans=$freeSpans")
+                Log.d("INFO", "spanRequiredInt=$spanRequiredInt")
 
                 // Add the required span to spanList
                 spanList.add(spanRequiredInt)

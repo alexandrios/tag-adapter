@@ -82,11 +82,20 @@ class MeasureHelper(
 
                 // Required span for the holder in Float/
                 val span = (itemView.rowTitle.width + marginTotal) / baseCell
+                Log.d("INFO", "itemView.rowTitle.width=${itemView.rowTitle.width}")
                 Log.d("INFO", "span = $span" )
 
                 // Increase measured count.
                 measuredCount++
 
+                //if (tag.title == "Small") {
+/*
+                if (tag.title[0].toString() == "S" || tag.title[0].toString() == "E"  || tag.title[0].toString() == "K") {
+                    rowManager.add(8f, Tag(""))
+                    rowManager.add(span, tag)
+                }
+                else
+*/
                 rowManager.add(span, tag)
 
                 cellMeasured()

@@ -12,12 +12,14 @@ class TagRowManager {
             add(TagRow())
         }
 
+    private var currentRow = 0
+
     /***
      * Loop through the rowList to fit the required span
      */
     fun add(spanRequired: Float, tag: Tag) {
 
-        for (i in 0..rowList.size) {
+        for (i in currentRow..rowList.size) {
 
             val tagRow = rowList[i]
 
@@ -26,8 +28,13 @@ class TagRowManager {
                 break
 
             // If the model did not fit in any of current cells
-            if (i == rowList.lastIndex)
+            if (i == rowList.lastIndex) {
+                // Центрировать тэги текущей строки
+                tagRow.centerTags()
+
                 rowList.add(TagRow())
+                currentRow++
+            }
         }
     }
 

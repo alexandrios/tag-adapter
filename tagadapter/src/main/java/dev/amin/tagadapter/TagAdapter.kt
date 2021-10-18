@@ -12,7 +12,7 @@ import kotlin.properties.Delegates
 class TagAdapter(
     private var tagList: MutableList<Tag>,
     private val listener: TagAdapterListener
-) : RecyclerView.Adapter<TagAdapter.Holder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface TagAdapterListener {
         fun onTagClick(tag: Tag)
@@ -92,22 +92,44 @@ class TagAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        Holder(LayoutInflater.from(parent.context).inflate(R.layout.row_tag, parent, false))
+    override fun getItemViewType(position: Int): Int {
+       if (tagList[position].title == "")
+           return 1
+       return 0
+    }
+
+    //override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+    //    Holder(LayoutInflater.from(parent.context).inflate(R.layout.row_tag, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            1 -> {
+                Holder1(LayoutInflater.from(parent.context).inflate(R.layout.row_tag1, parent, false))
+            }
+            else -> {
+                Holder(LayoutInflater.from(parent.context).inflate(R.layout.row_tag, parent, false))
+            }
+        }
+    }
 
     override fun getItemCount() = if (ready) tagList.size else 0
 
-    override fun onBindViewHolder(holder: Holder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         val tag = tagList[position]
 
         // Determine if the MeasureHelper is done measuring if not holder should be measured.
         val shouldMeasure = measureHelper.shouldMeasure()
 
-        holder.setData(tag, shouldMeasure)
+        if (holder.itemViewType == 1) {
+            //(holder as Holder1).setData(tag, shouldMeasure)
+        }
+        else {
+            (holder as Holder).setData(tag, shouldMeasure)
 
-        if (shouldMeasure)
-            measureHelper.measure(holder, tag)
+
+            if (shouldMeasure)
+                measureHelper.measure((holder as Holder), tag)
+        }
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -129,4 +151,21 @@ class TagAdapter(
                 itemView.rowTitle.layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT
         }
     }
+
+    inner class Holder1(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun setData(tag: Tag, shouldMeasure: Boolean) {
+
+            itemView.rowTitle.apply {
+
+                text = tag.title
+                //setOnClickListener { listener.onTagClick(tag) }
+
+                layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
+            }
+
+            if (!shouldMeasure)
+                itemView.rowTitle.layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT
+        }
+    }
+
 }
