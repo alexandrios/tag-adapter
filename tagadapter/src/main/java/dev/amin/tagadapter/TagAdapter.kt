@@ -10,8 +10,13 @@ import kotlinx.android.synthetic.main.row_tag.view.*
 import kotlin.properties.Delegates
 
 class TagAdapter(
-    private var tagList: MutableList<Tag>
+    private var tagList: MutableList<Tag>,
+    private val listener: TagAdapterListener
 ) : RecyclerView.Adapter<TagAdapter.Holder>() {
+
+    interface TagAdapterListener {
+        fun onTagClick(tag: Tag)
+    }
 
     /***
      * Measuring Helper which is used to measure each row of the recyclerView
@@ -105,12 +110,13 @@ class TagAdapter(
             measureHelper.measure(holder, tag)
     }
 
-    class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun setData(tag: Tag, shouldMeasure: Boolean) {
 
             itemView.rowTitle.apply {
 
                 text = tag.title
+                setOnClickListener { listener.onTagClick(tag) }
 
                 /* set the height to normal, because in the measureHelper in order to fit
                     as much holders as possible we shrink the view to height of 1 */

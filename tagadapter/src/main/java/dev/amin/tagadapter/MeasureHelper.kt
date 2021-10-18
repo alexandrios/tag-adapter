@@ -1,5 +1,6 @@
 package dev.amin.tagadapter
 
+import android.util.Log
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.recyclerview.widget.RecyclerView
@@ -71,12 +72,17 @@ class MeasureHelper(
                 // Remove the observer to avoid multiple callbacks.
                 itemView.viewTreeObserver.removeOnGlobalLayoutListener(this)
 
+                Log.d("INFO", tag.title)
+
+                val marginStart = (itemView.rowTitle.layoutParams as ViewGroup.MarginLayoutParams).marginStart
+                Log.d("INFO", "marginStart = $marginStart" )
                 // Include also the horizontal margin of the layout.
-                val marginTotal =
-                    (itemView.rowTitle.layoutParams as ViewGroup.MarginLayoutParams).marginStart * 2
+                val marginTotal = marginStart * 2
+                Log.d("INFO", "marginTotal = $marginTotal" )
 
                 // Required span for the holder in Float/
                 val span = (itemView.rowTitle.width + marginTotal) / baseCell
+                Log.d("INFO", "span = $span" )
 
                 // Increase measured count.
                 measuredCount++

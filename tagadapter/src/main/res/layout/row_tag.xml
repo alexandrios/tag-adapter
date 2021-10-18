@@ -16,4 +16,4 @@
           android:paddingEnd="@dimen/marginSmall"
           android:paddingBottom="@dimen/marginTiny"
           android:singleLine="true"
-          android:textColor="@color/colorTextLight"/>
+          android:textColor="#FE391E"/>

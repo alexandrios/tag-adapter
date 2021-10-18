@@ -1,20 +1,22 @@
 package dev.amin.tagadapterexample
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.amin.tagadapter.Tag
 import dev.amin.tagadapter.TagAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), TagAdapter.TagAdapterListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         rv.apply {
-            adapter = TagAdapter(tagList)
+            adapter = TagAdapter(tagList, this@MainActivity)
             layoutManager = LinearLayoutManager(this@MainActivity)
         }
     }
@@ -66,4 +68,13 @@ class MainActivity : AppCompatActivity() {
                 Tag("Candies")
             )
         }
+
+    var toast: Toast? = null
+
+    @SuppressLint("ShowToast")
+    override fun onTagClick(tag: Tag) {
+        toast?.cancel()
+        toast = Toast.makeText(this, tag.title, Toast.LENGTH_LONG)
+        toast?.show()
+    }
 }
