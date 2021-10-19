@@ -93,7 +93,7 @@ class TagAdapter(
     }
 
     override fun getItemViewType(position: Int): Int =
-        if (tagList[position].title/*.trim()*/ == "") 1 else 0
+        if (tagList[position].title.trim() == "") 1 else 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         Holder(LayoutInflater.from(parent.context).inflate(R.layout.row_tag, parent, false))

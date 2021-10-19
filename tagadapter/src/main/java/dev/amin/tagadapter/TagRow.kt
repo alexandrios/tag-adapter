@@ -25,7 +25,7 @@ class TagRow {
     * to the row: one - the first, another - the last. Total spans count equal freeSpans.
     */
     fun centerTags() {
-        val emptyTitle = " " // TODO: ""
+        val emptyTitle = ""
         val leftSpan = freeSpans / 2
         if (leftSpan > 0) {
             spanList.add(0, leftSpan)
