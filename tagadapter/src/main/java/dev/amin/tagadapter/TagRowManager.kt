@@ -50,8 +50,6 @@ class TagRowManager {
             }
         }
 
-    fun centerLastRow()
-    {
+    fun centerLastRow() =
         rowList.last().centerTags()
-    }
 }

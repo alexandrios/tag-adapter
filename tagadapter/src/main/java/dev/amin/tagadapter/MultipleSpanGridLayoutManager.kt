@@ -13,12 +13,6 @@ class MultipleSpanGridLayoutManager(context: Context, spanCount: Int, spanList: 
 
         spanSizeLookup = object : SpanSizeLookup() {
             override fun getSpanSize(position: Int) = spanList[position]
-/*
-            override fun getSpanSize(position: Int): Int {
-                //Log.d("INFO", "$position: ${spanList[position]}")
-                return spanList[position]
-            }
-*/
         }
     }
 }

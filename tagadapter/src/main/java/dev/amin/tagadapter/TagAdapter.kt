@@ -92,25 +92,11 @@ class TagAdapter(
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-       //if (tagList[position].title.trim() == "")
-       if (tagList[position].title == "")
-           return 1
-       return 0
-    }
+    override fun getItemViewType(position: Int): Int =
+        if (tagList[position].title/*.trim()*/ == "") 1 else 0
 
-    //override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-    //    Holder(LayoutInflater.from(parent.context).inflate(R.layout.row_tag, parent, false))
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            1 -> {
-                Holder1(LayoutInflater.from(parent.context).inflate(R.layout.row_tag1, parent, false))
-            }
-            else -> {
-                Holder(LayoutInflater.from(parent.context).inflate(R.layout.row_tag, parent, false))
-            }
-        }
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        Holder(LayoutInflater.from(parent.context).inflate(R.layout.row_tag, parent, false))
 
     override fun getItemCount() = if (ready) tagList.size else 0
 
@@ -122,14 +108,13 @@ class TagAdapter(
         val shouldMeasure = measureHelper.shouldMeasure()
 
         if (holder.itemViewType == 1) {
-            //(holder as Holder1).setData(tag, shouldMeasure)
+            holder.itemView.visibility = View.INVISIBLE
         }
         else {
             (holder as Holder).setData(tag, shouldMeasure)
 
-
             if (shouldMeasure)
-                measureHelper.measure((holder as Holder), tag)
+                measureHelper.measure((holder), tag)
         }
     }
 
@@ -138,7 +123,7 @@ class TagAdapter(
 
             itemView.rowTitle.apply {
 
-                text = tag.title
+                text = String.format(" ${tag.title} ")
                 setOnClickListener { listener.onTagClick(tag) }
 
                 /* set the height to normal, because in the measureHelper in order to fit
@@ -148,22 +133,6 @@ class TagAdapter(
 
             /* if the measuring is done set the width to fill the whole cell to avoid unwanted
                 empty spaces between the cells */
-            if (!shouldMeasure)
-                itemView.rowTitle.layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT
-        }
-    }
-
-    inner class Holder1(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun setData(tag: Tag, shouldMeasure: Boolean) {
-
-            itemView.rowTitle.apply {
-
-                text = tag.title
-                //setOnClickListener { listener.onTagClick(tag) }
-
-                layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
-            }
-
             if (!shouldMeasure)
                 itemView.rowTitle.layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT
         }
