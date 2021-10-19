@@ -58,7 +58,7 @@ class MeasureHelper(
             adapter.measuringDone = true
     }
 
-    fun measure(holder: TagAdapter.Holder, tag: Tag) {
+    fun measure(holder: RecyclerView.ViewHolder, tag: Tag) {
 
         /* Get the ItemView and minimize it's height as small as possible
             to fit as many cells as it's possible in the screen. */
@@ -88,14 +88,6 @@ class MeasureHelper(
                 // Increase measured count.
                 measuredCount++
 
-                //if (tag.title == "Small") {
-/*
-                if (tag.title[0].toString() == "S" || tag.title[0].toString() == "E"  || tag.title[0].toString() == "K") {
-                    rowManager.add(8f, Tag(""))
-                    rowManager.add(span, tag)
-                }
-                else
-*/
                 rowManager.add(span, tag)
 
                 cellMeasured()

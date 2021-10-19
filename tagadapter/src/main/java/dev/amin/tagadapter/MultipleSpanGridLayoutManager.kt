@@ -8,15 +8,17 @@ class MultipleSpanGridLayoutManager(context: Context, spanCount: Int, spanList: 
     GridLayoutManager(context, spanCount) {
 
     init {
-        val totalSize = spanList.size
-        Log.d("INFO", "totalSize = $totalSize")
+        Log.d("INFO", "spanCount = $spanCount")
+        Log.d("INFO", "spanList.size = ${spanList.size}")
 
         spanSizeLookup = object : SpanSizeLookup() {
-            override fun getSpanSize(position: Int) = spanList[position] + 1
-
-/*            override fun getSpanSize(position: Int): Int {
-                return spanList[position] + 1
-            }*/
+            override fun getSpanSize(position: Int) = spanList[position]
+/*
+            override fun getSpanSize(position: Int): Int {
+                //Log.d("INFO", "$position: ${spanList[position]}")
+                return spanList[position]
+            }
+*/
         }
     }
 }

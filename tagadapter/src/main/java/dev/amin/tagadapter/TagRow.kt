@@ -8,7 +8,7 @@ class TagRow {
     /***
      * The available spans that the current row has.
      */
-    var freeSpans = MeasureHelper.SPAN_COUNT
+    private var freeSpans = MeasureHelper.SPAN_COUNT
 
     /***
      * List of the holders hosted in the current row.
@@ -21,12 +21,16 @@ class TagRow {
     val spanList = mutableListOf<Int>()
 
     fun centerTags() {
-        var countSpans = freeSpans/2 - 1
-        //if (countSpans > 3)
-        //    countSpans -= 2
-        if (countSpans > 0) {
-            spanList.add(0, countSpans)
-            tagList.add(0, Tag(""))
+        val emptyTitle = " "
+        val leftSpan = freeSpans / 2
+        if (leftSpan > 0) {
+            spanList.add(0, leftSpan)
+            tagList.add(0, Tag(emptyTitle))
+        }
+        val rightSpan = freeSpans - leftSpan
+        if (rightSpan > 0) {
+            spanList.add(rightSpan)
+            tagList.add(Tag(emptyTitle))
         }
     }
 
@@ -34,9 +38,8 @@ class TagRow {
 
         val spanRequiredInt = ceil(spanRequired).toInt()
         // if the current row has enough available span
-        if (spanRequiredInt < freeSpans)
+        if (spanRequired < freeSpans)
             if (tagList.add(tag)) {
-
                 // Round the required span to Int
                 //val spanRequiredInt = ceil(spanRequired).toInt()
                 Log.d("INFO", "freeSpans=$freeSpans")
