@@ -20,8 +20,12 @@ class TagRow {
      */
     val spanList = mutableListOf<Int>()
 
+    /***
+    * Set alignment of all tags in the row by center through the adding two new tags
+    * to the row: one - the first, another - the last. Total spans count equal freeSpans.
+    */
     fun centerTags() {
-        val emptyTitle = " "
+        val emptyTitle = " " // TODO: ""
         val leftSpan = freeSpans / 2
         if (leftSpan > 0) {
             spanList.add(0, leftSpan)
@@ -35,16 +39,15 @@ class TagRow {
     }
 
     fun addTag(spanRequired: Float, tag: Tag) : Boolean {
-
+        // Round the required span to Int
         val spanRequiredInt = ceil(spanRequired).toInt()
+
+        Log.d("INFO", "freeSpans=$freeSpans")
+        Log.d("INFO", "spanRequiredInt=$spanRequiredInt")
+
         // if the current row has enough available span
         if (spanRequired < freeSpans)
             if (tagList.add(tag)) {
-                // Round the required span to Int
-                //val spanRequiredInt = ceil(spanRequired).toInt()
-                Log.d("INFO", "freeSpans=$freeSpans")
-                Log.d("INFO", "spanRequiredInt=$spanRequiredInt")
-
                 // Add the required span to spanList
                 spanList.add(spanRequiredInt)
 

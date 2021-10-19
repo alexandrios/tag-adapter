@@ -93,6 +93,7 @@ class TagAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
+       //if (tagList[position].title.trim() == "")
        if (tagList[position].title == "")
            return 1
        return 0

@@ -29,26 +29,29 @@ class TagRowManager {
 
             // If the model did not fit in any of current cells
             if (i == rowList.lastIndex) {
-                // Центрировать тэги текущей строки
                 tagRow.centerTags()
-
                 rowList.add(TagRow())
                 currentRow++
             }
         }
     }
 
-    fun getSortedSpans() =
+    fun getSpans() =
         mutableListOf<Int>().apply {
             rowList.forEach {
                 addAll(it.spanList)
             }
         }
 
-    fun getSortedTags() =
+    fun getTags() =
         mutableListOf<Tag>().apply {
             rowList.forEach {
                 addAll(it.tagList)
             }
         }
+
+    fun centerLastRow()
+    {
+        rowList.last().centerTags()
+    }
 }

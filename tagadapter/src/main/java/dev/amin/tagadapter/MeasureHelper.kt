@@ -43,9 +43,9 @@ class MeasureHelper(
      */
     fun shouldMeasure() = measuredCount != count
 
-    fun getItems() = rowManager.getSortedTags()
+    fun getItems() = rowManager.getTags()
 
-    fun getSpans() = rowManager.getSortedSpans()
+    fun getSpans() = rowManager.getSpans()
 
     /***
      * Calling this method every time a cell is measured and
@@ -89,6 +89,10 @@ class MeasureHelper(
                 measuredCount++
 
                 rowManager.add(span, tag)
+
+                if (measuredCount == count) {
+                    rowManager.centerLastRow()
+                }
 
                 cellMeasured()
             }
