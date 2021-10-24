@@ -12,7 +12,7 @@ import kotlin.properties.Delegates
 class TagAdapter(
     private var tagList: MutableList<Tag>,
     private val listener: TagAdapterListener
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<TagAdapter.Holder>() {
 
     interface TagAdapterListener {
         fun onTagClick(tag: Tag)
@@ -100,7 +100,7 @@ class TagAdapter(
 
     override fun getItemCount() = if (ready) tagList.size else 0
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: Holder, position: Int) {
 
         val tag = tagList[position]
 
@@ -111,10 +111,10 @@ class TagAdapter(
             holder.itemView.visibility = View.INVISIBLE
         }
         else {
-            (holder as Holder).setData(tag, shouldMeasure)
+            holder.setData(tag, shouldMeasure)
 
             if (shouldMeasure)
-                measureHelper.measure((holder), tag)
+                measureHelper.measure(holder, tag)
         }
     }
 
