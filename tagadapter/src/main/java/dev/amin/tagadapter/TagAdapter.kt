@@ -1,5 +1,6 @@
 package dev.amin.tagadapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -82,6 +83,7 @@ class TagAdapter(
 
                     // Measure the BaseCell on MeasureHelper.
                     measureHelper.measureBaseCell(recyclerView.width)
+                    Log.d("INFOTAG", "recyclerView.width=${recyclerView.width}")
 
                     ready = true
 
@@ -124,6 +126,7 @@ class TagAdapter(
             itemView.rowTitle.apply {
 
                 text = String.format(" ${tag.title} ")
+                //text = tag.title
                 setOnClickListener { listener.onTagClick(tag) }
 
                 /* set the height to normal, because in the measureHelper in order to fit

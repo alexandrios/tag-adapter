@@ -3,11 +3,13 @@ package dev.amin.tagadapterexample
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.amin.tagadapter.Tag
 import dev.amin.tagadapter.TagAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import java.security.KeyStore
 
 class MainActivity : AppCompatActivity(), TagAdapter.TagAdapterListener {
 
@@ -24,6 +26,12 @@ class MainActivity : AppCompatActivity(), TagAdapter.TagAdapterListener {
     private val tagList: MutableList<Tag>
         get() {
             return mutableListOf(
+                Tag("lopta"),
+                Tag("loptanje"),
+                Tag("loptast"),
+                Tag("loptati se")
+                        /*
+
                 Tag("Exercise"),
                 Tag("Be Cool"),
                 Tag("Floss"),
@@ -66,6 +74,8 @@ class MainActivity : AppCompatActivity(), TagAdapter.TagAdapterListener {
                 Tag("Run for your Life"),
                 Tag("Margarita"),
                 Tag("Candies")
+
+                         */
             )
         }
 
@@ -76,5 +86,28 @@ class MainActivity : AppCompatActivity(), TagAdapter.TagAdapterListener {
         toast?.cancel()
         toast = Toast.makeText(this, tag.title, Toast.LENGTH_LONG)
         toast?.show()
+    }
+
+    var flag = true
+    fun clickButton(view: View) {
+        flag = !flag
+        var t: MutableList<Tag> = if (flag)
+            mutableListOf(
+                Tag("lopta"),
+                Tag("loptanje"),
+                Tag("loptast"),
+                Tag("loptati se") )
+        else
+            mutableListOf(
+                Tag("lopta"),
+                Tag("loptanje"),
+                Tag("loptast"),
+                Tag("loptati se"),
+                Tag("polulopta"))
+
+        rv.apply {
+            adapter = TagAdapter(t, this@MainActivity)
+            layoutManager = LinearLayoutManager(this@MainActivity)
+        }
     }
 }

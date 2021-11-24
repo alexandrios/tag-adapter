@@ -10,10 +10,10 @@
           android:ellipsize="none"
           android:includeFontPadding="false"
           android:orientation="vertical"
-          android:paddingStart="@dimen/marginSmall"
+          android:paddingStart="@dimen/marginLarge"
           android:textAlignment="center"
           android:paddingTop="@dimen/marginTiny"
-          android:paddingEnd="@dimen/marginSmall"
+          android:paddingEnd="@dimen/marginLarge"
           android:paddingBottom="@dimen/marginTiny"
           android:singleLine="true"
           android:textColor="#FE391E"/>
